@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "description": "",
+  "description": "Professional README.md file generator",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Brian Zoulko",
+  "license": "MIT",
   "dependencies": {
     "inquirer": "^8.2.4",
     "prompt": "^1.3.0",

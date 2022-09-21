@@ -2,45 +2,78 @@
 const inquirer = require("inquirer");
 
 // TODO: Create an array of questions for user input
-const questions = [
+const questions = [ "What is the Title for this project? ",
+                    "What is the purpose of this project? ",
+                    "What does this application do? ", 
+                    "What are some key elements or highlight features in this applicaton? ",
+                    "Enter the link to this application: ",                    
+];
+const properties = [{}];
+
+// Load properties object for 'inquirer' to prompt each question.
+var index = -1;
+properties.pop();
+questions.forEach(element => {
+    const prop = 
     {
-      type: "input",
-      name: "prompt",
-      message: "Select answer:",
-      choices: [
-        "My Selection!",
-        "Your Selection!"
-      ]
-    },
-    {
-      type: "input",
-      name: "prompt",
-      message: "This is my selection Choice.",
-      choices: ["Selection"]
+        type: 'input',
+        message: element,
+        name: 'question#' + (++index), // Make sure the answer in the answers hash is unique.
     }
-  ];
-  
+    properties.push(prop);
+});
 
 
 // TODO: Create a function to write README file
-async function writeToFile(fileName, data) {}
+async function writeToFile(fileName, data) {
+    const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
+
+    fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
+      err ? console.log(err) : console.log('Success!')
+    );
+}
 
 // TODO: Create a function to initialize app
 //function init() {}
 async function init() {
-    const outPath = await inquirer.prompt([
-      {
-        type: "input",
-        name: "outPath",
-        default: process.argv[1],
-        message: "Insert the output path"
-      }
-    ]).outPath;
-    console.log(outPath);
-  }
+    
+    // Prompt questions for ReadMe file.
+    await inquirer.prompt(properties)
+    .then((data) => {
+
+        var questionData = data;
+        inquirer.prompt([{
+            type: 'list',
+            message: 'Would you like to?  [Save] [Quit] or [Restart]',
+            name: 'doWhat',
+            choices: ['Save', 'Quit', 'Restart'],
+        }]).then((response) => {
+
+            console.log("Response: " + JSON.stringify(response, null, '\t'));
+
+            switch (response.doWhat) {
+                case "Save":
+                    console.log("\n\nReadme Data: " + JSON.stringify(questionData, null, '\t') + "\n");
+                    break;
+                case "Quit":
+                    console.log("\n\nDo Not Save Data.\n");
+                    break;
+                case "Restart":                                            
+                    console.log("\n\nRestart the questions...\n");
+                    init();
+                    break;
+            }
+
+        });
+
+    });
+
+  await writeToFile(outPath,"MyFile");
+}
 
 // Function call to initialize app
 init();
+
 
 
 
