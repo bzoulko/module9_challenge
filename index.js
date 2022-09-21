@@ -38,10 +38,12 @@ async function writeToFile(fileName, data) {
 async function init() {
     
     // Prompt questions for ReadMe file.
-    await inquirer.prompt(properties)
+    inquirer.prompt(properties)
     .then((data) => {
 
         var questionData = data;
+        
+        // Prompt user to Save, Quit or Restart question prompting.
         inquirer.prompt([{
             type: 'list',
             message: 'Would you like to?  [Save] [Quit] or [Restart]',
@@ -51,6 +53,7 @@ async function init() {
 
             console.log("Response: " + JSON.stringify(response, null, '\t'));
 
+            // Ask user what they want to do...
             switch (response.doWhat) {
                 case "Save":
                     console.log("\n\nReadme Data: " + JSON.stringify(questionData, null, '\t') + "\n");
@@ -68,7 +71,6 @@ async function init() {
 
     });
 
-  await writeToFile(outPath,"MyFile");
 }
 
 // Function call to initialize app
