@@ -2,44 +2,40 @@
 const inquirer = require("inquirer");
 
 // TODO: Create an array of questions for user input
-const questions = [
-    {
-      type: "input",
-      name: "prompt",
-      message: "Select answer:",
-      choices: [
-        "My Selection!",
-        "Your Selection!"
-      ]
-    },
-    {
-      type: "input",
-      name: "prompt",
-      message: "This is my selection Choice.",
-      choices: ["Selection"]
-    }
-  ];
-  
-
+const questions = [ "What is the title of this project? ",
+                    "What is the purpose of this application / what does it do? ",
+                    "What are some key elements in this applicaton / highlight features? "
+];
 
 // TODO: Create a function to write README file
 async function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
 //function init() {}
-async function init() {
-    const collections = (await inquirer.prompt(questions)).collections;
-    console.log("collections:", collections);
-    const outPath = await inquirer.prompt([
-      {
-        type: "input",
-        name: "outPath",
-        default: process.argv[1],
-        message: "Insert the output path"
-      }
-    ]).outPath;
-    console.log(outPath);
-  }
+function init() {
+    inquirer.prompt(function() {
+
+        let rtnProps = [{}];
+    
+        console.log("Running Init");
+        for (let x = 0; x < questions.length; x++) {
+            let eachQuest = {
+                type: "input",
+                name: "prompt",
+                message: questions[x],
+            };
+            console.log("eachQuest.message: " + eachQuest.message);
+
+            rtnProps.push(eachQuest);
+        }
+    
+        console.log("rtnProps: " + rtnProps.length);
+    
+        return(rtnProps);
+    
+    });
+    console.log("Finished!");
+}
 
 // Function call to initialize app
 init();
