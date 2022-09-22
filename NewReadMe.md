@@ -9,3 +9,7 @@
 *  Everything is controlled from a single set of array elements. 
 *  Using inquirer was not an easy task, I had to over come the async / await functionality. 
 *  Build the file itself was not easy, had to learn how 'fs' functioned and what methods to use.
+
+
+## MIT License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

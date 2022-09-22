@@ -98,8 +98,10 @@ async function init() {
                     " " + data.question3 + "\n\n" +
                     "### " + data.question4 + "\n" +
                     " ";
+                    var badgeMIT = "\n\n## MIT License\n" + 
+                                   "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
                     for (let x = 1; x < elements.length; x++) dataOut += "\n* " + elements[x];
-                    writeToFile(dataOut);
+                    writeToFile(dataOut + badgeMIT);                    
                     break;
                 case "Quit":
                     console.log("\n\nDo Not Save Data.\n");
