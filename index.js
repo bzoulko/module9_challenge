@@ -8,7 +8,6 @@ const printCyanText = (text) => `\x1b[36m${text}\x1b[0m`; // Barrowed logic idea
 const questions = [ "What is the Title for this project? ",
                     "What is the purpose of this project? ",
                     "What does this application do? ", 
-                    "What are some key elements or highlight features in this applicaton? ",
                     "Enter the link to this application: ",                    
 ];
 const properties = [{}];
@@ -24,7 +23,7 @@ questions.forEach(element => {
     {
         type: 'input',
         message: element,
-        name: 'question#' + (++index), // Make sure the answer in the answers hash is unique.
+        name: 'question#' + (++index), // Make sure the answer in the answers hash is unique.        
     }
     properties.push(prop);
 });
@@ -48,12 +47,26 @@ async function writeToFile(fileName, data) {
     Initialize questionair for user to start building ReadMe.md file.
 ********************************************************************* */
 async function init() {
+    console.clear();
     
     // Prompt questions for ReadMe file.
-    inquirer.prompt(properties)
+    console.log("\n\t***************************************" );
+    console.log("\n\t**   " + printCyanText("Start building ReadMe.md File") + "   **" );
+    console.log("\n\t***************************************\n" );
+    await inquirer.prompt(properties)
     .then((data) => {
 
+        // Store questionair input.
         var questionData = data;
+        console.log("questionData: " + questionData);
+
+        // Function for multi-line input.
+        var lastQuestion = "Enter some key elements or highlight features in this applicaton? ";
+        var multiLines = readMultipleLines(lastQuestion);
+
+        console.log("muliLines: " + multiLines);
+
+        data += multiLines;
         
         // Prompt user to Save, Quit or Restart question prompting.
         inquirer.prompt([{
@@ -89,11 +102,14 @@ async function init() {
 /* *****************************************************************
     Wrote function to capture multiple line entry from the terminal.
 ******************************************************************** */
-function readMultipleLines(){
+async function readMultipleLines(quest){
     var input = [];
 
+    console.log("Entering readMultiLines routine");
+
     // Notify user to enter multiple lines of text and CTRL+C to end text entry.
-    console.log("\n\nPress " + printCyanText("CTRL+C") + " to end text entry, enter mulitple lines.\n");
+    console.log("\n\tPress " + printCyanText("CTRL+C") + " to end text entry, enter mulitple lines.");
+    console.log("\n" + quest + "\n");
 
     // Create line reading variable.
     var rl = readline.createInterface({
@@ -115,10 +131,21 @@ function readMultipleLines(){
         process.exit(0);
     });
 
+    console.log("Exiting readMultiLines routine");
 }
 
 // Function call to initialize app
 init();
 
-// Function call to initialize app
-readMultipleLines();
+// const sleep = (ms) => {
+//     return new Promise((resolve) => setTimeout(resolve, ms));
+// };
+  
+// const action = async () => {
+//     for (let i = 1; i < 5; i++){
+//         console.log(`Round ${i}`)
+//         console.log('Waiting for 500ms')
+//         await sleep(500)
+//         console.log('Posting')
+//     }
+// }
