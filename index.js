@@ -12,7 +12,7 @@ const questions = [ "Enter Your-Project-Title? ",
                     "Why did you build this project? ",
                     "What problem does it solve? ", 
                     "What did you learn?",
-                    "What Key elements to your application, delimit them by an astrisk?",                    
+                    "What Key elements help your application?",                    
 ];
 const properties = [{}];
 
@@ -90,13 +90,15 @@ async function init() {
             // Ask user what they want to do...
             switch (response.doWhat) {
                 case "Save":
-                    const dataOut = 
+                    const elements = data.question5.split("*");
+                    var dataOut = 
                     "# " + data.question0 + "\n" +
                     " " + data.question1 + "\n\n" +
                     "## " + data.question2 + "\n" +
                     " " + data.question3 + "\n\n" +
                     "### " + data.question4 + "\n" +
-                    " " + data.question5.replace('* ', '\n* ');
+                    " ";
+                    for (let x = 1; x < elements.length; x++) dataOut += "\n* " + elements[x];
                     writeToFile(dataOut);
                     break;
                 case "Quit":
