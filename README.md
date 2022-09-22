@@ -28,5 +28,5 @@ of detail regarding what should be included in a professional ReadMe file.
 ![image](https://user-images.githubusercontent.com/108200823/191761769-a11d0e47-5192-4feb-93be-b6c7641224b8.png)
 
 
-## MIT License
+### MIT License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
